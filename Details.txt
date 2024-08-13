@@ -1,0 +1,262 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> OpenCV Course - Full Tutorial with Python (freecodecamp.org) <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+>> pip install opencv-contrib-python  ==> Included development and production features 
+>> pip install caer    ==> To speed up the process
+>> Github Repo:  https://github.com/jasmcaus/opencv-course
+>> Opencv Color Divsion is ==> **** BGR ****
+>>
+
+>>>>>>>>>>>>>>>>>>>>>>>> LIBRARY EXPLAINATION <<<<<<<<<<<<<<<<<<<<<<<<<
+
+>> The cv.waitKey(0) function call in OpenCV is used to display an image in a window indefinitely until a key is pressed.
+
+>> cv.VideoCapture(int) ==> For webcame camera etc ==> Can be assigned multiple integers as 0 for webcame, 1 for other device and so on. 
+
+>> error: (-215:Assertion failed) ===> Wrong path for the image ro video
+
+>> cv.waitKey(delay) ==> This function takes a single argument, which is the delay in milliseconds. When you call cv.waitKey(51), as in your example,
+   it means that the program will wait for approximately 51 milliseconds before moving on to the next line of code. ==> This thing can be use to control video speed
+
+>> Opencv ==> Primarily focus on video playing not the sound ==> To play sound use other library like pygame etc and adjuct the audio and video 
+
+>> '& 0xFF' is a bitwise AND operation that is used to mask the result to only keep the least significant 8 bits of the ASCII code. This is done because cv.waitKey() 
+   can return a larger integer value where only the last 8 bits represent the key code, and the rest might contain other information.
+   "== ord('q')" compares the masked result to the ASCII code of the character 'q' (which is 113).
+   The & operator in this context is not the logical AND operator; it's a bitwise operation used to extract the relevant bits for comparison.
+
+>> np.zeros((500, 500, 3), dtype='uint8'): This part of the code initializes a NumPy array filled with zeros. Here's what each argument means:
+   (500, 500, 3): This specifies the shape of the NumPy array. It creates a 3-dimensional array with a height of 500 pixels, a width of 500 pixels, 
+   and 3 color channels (for red, green, and blue, often referred to as RGB).
+
+   dtype='uint8': This specifies the data type of the array elements. 'uint8' stands for "unsigned 8-bit integer," which means that each pixel's 
+   color channel can have values between 0 and 255 (inclusive). 
+
+   This is a common data type for representing image pixel values because it allows for 256 different shades of color for each channel.
+
+>> cv.GaussianBlur(): This is the function from the OpenCV library used to apply Gaussian blur. Gaussian blur is a type of image smoothing or 
+   filtering operation commonly used in computer vision and image processing.It reduces noise in the image and blurs the edges, 
+   making it useful for various tasks like reducing noise before feature extraction or object 
+
+   (9, 113): These are the parameters that determine the size of the Gaussian kernel used for blurring. The Gaussian kernel is a matrix that defines the 
+   weights applied to the neighboring pixels during the blurring operation. The size of the kernel affects the degree of blurring. In this case, you are using 
+   a kernel with a size of 9x9 pixels. The larger the kernel, the stronger the blurring effect. The second number, 113, is the standard deviation of the 
+   Gaussian distribution, which determines the spread of the blur. A higher standard deviation results in a broader and softer blur.
+
+   cv.BORDER_DEFAULT: This argument specifies the border mode used during the blurring operation. In this case, cv.BORDER_DEFAULT indicates that OpenCV 
+   should use the default border mode, which is typically reflected or symmetric border handling. It means that when blurring near the edges 
+   of the image, pixel values outside the image boundaries are reflected back into the image to avoid artifacts.
+
+>> 125 and 175: These are the threshold values used by the Canny edge detection algorithm. The Canny algorithm works by first applying gradient operations 
+   to the image to find areas of intensity change, and then it applies two threshold values:
+   The first threshold (125 in your case) is used to identify potential edges.Any pixel with an intensity gradient greater than this threshold is considered 
+   an edge pixel candidate.
+
+   The second threshold (175 in your case) is used for edge tracking. It helps determine which edge candidate pixels are part of continuous edges. 
+   Pixels with gradient values above this threshold are considered part of the final edges.
+
+>> The line translateMat = np.float32([[1, 0, x], [0, 1, y]]) is creating a 2x3 transformation matrix called translateMat in NumPy. 
+   This matrix is used to specify a 2D translation operation for an image or a set of points. Let me break down the components of this matrix:::
+
+   np.float32: This is a NumPy data type specifier, indicating that the matrix elements should be of type 32-bit floating-point. In the context of computer 
+   vision and image processing, using floating-point precision is common because it allows for subpixel accuracy in transformations.
+
+   [[1, 0, x], [0, 1, y]]: This is the actual transformation matrix. It's a 2x3 matrix, where each row represents a transformation operation, 
+   and each column represents a component of the transformation. 
+   Here's what each element in the matrix means:
+   1 in the top-left corner: This element corresponds to the scaling factor for the x-axis. In this case, it's set to 1, meaning there is no scaling 
+   in the x-direction.
+   0 in the top-center position: This element represents the skewing or shearing factor along the x-axis. It's set to 0, indicating no skewing.
+   x in the top-right corner: This element represents the translation along the x-axis. It's set to the value of x, which determines the horizontal shift.
+   0 in the bottom-left corner: This element corresponds to the skewing or shearing factor along the y-axis. It's set to 0, indicating no skewing.
+   1 in the bottom-center position: This element represents the scaling factor for the y-axis. It's set to 1, meaning there is no scaling in the y-direction.
+   y in the bottom-right corner: This element represents the translation along the y-axis. It's set to the value of y, which determines the vertical shift.
+
+>> Contoures
+   Contours, in the context of image processing and computer vision, are simply the boundaries of objects or regions within an image that share the same 
+   color or intensity. Contours represent the shapes and outlines of objects, and they are a fundamental concept in various image processing tasks, including
+   object detection, shape recognition, and image segmentation.
+   Here are some key points about contours:
+
+   Object Boundaries: Contours are used to delineate the boundaries of objects or regions within an image. These objects can be anything from simple geometric 
+   shapes to more complex objects like faces, cars, or handwritten letters.
+
+   Connected Pixels: Contours are composed of connected pixels with the same intensity or color. Each contour is a sequence of points that define the shape of the 
+   object. These points are typically ordered in a way that follows the outline of the object.
+   Hierarchy: In some cases, multiple contours can exist within an image, and they may have a hierarchical relationship. For example, a contour can contain other
+   contours, representing nested objects or holes within objects.
+
+   Applications: Contours are used in various image analysis tasks, such as object recognition, shape analysis, image segmentation, and object tracking. 
+   They provide valuable information about the shape, size, and position of objects in an image.
+
+   Contour Detection: To detect contours in an image, common algorithms like the Canny edge detector and the findContours function in OpenCV can be used. 
+   These algorithms identify regions of rapid intensity change, which often correspond to object boundaries.
+
+   Contours vs. Edges: Contours are distinct from edges. Edges represent transitions in intensity or color within an image and are often the result of edge 
+   detection algorithms. 
+
+>> Thresholding: 
+   ret: The ret variable holds a return value from the cv.threshold function. This value is not directly used in this line of code, but it represents the 
+   threshold value that the function computed based on the provided parameters.
+
+   thresh: This is the variable that will store the resulting thresholded image. The thresholding process will create a binary image where pixel values are 
+   either 0 (black) or 255 (white) depending on whether they meet the specified threshold condition.
+
+   150: This is the threshold value you want to use. Pixel values in the input image (gray) will be compared to this value. If a pixel's intensity is greater 
+   than or equal to this threshold, it will be set to the maximum value (255), making it white; otherwise, it will be set to the minimum value (0), making it black.
+
+   255: This is the maximum value that a pixel can take in the thresholded image. Pixels that pass the threshold condition are set to this value (white), and 
+   pixels that fail the threshold condition are set to 0 (black).
+
+>> IN CASE OF FINDING CONTOURS USE CANNY INSTEAD OF THRESHHOLDING AS THRSH HAS DISADVANTAGES IN ADVANCE SECTION
+
+>> BGR IS IN OPENCV WHILE RGB IN MATPLOTLIB (INVERSE OF COLORS) ==> IMAGE COLOR WILL OPPOSITE IN BOTH LIBRARIES FOR ANY IMAGE
+
+>> Lab Color Space:
+   Lab is a perceptually uniform color space, meaning that the perceptual difference between colors is more consistent with human vision compared to other color 
+   spaces like RGB or BGR.
+
+   Lab color space consists of three components:
+   L (Lightness): Represents the brightness of a color and ranges from 0 (black) to 100 (white).
+   a (Green-Red): Represents the color from green (-a) to red (+a).
+   (Blue-Yellow): Represents the color from blue (-b) to yellow (+b).
+   ab color space is designed to be device-independent, which means it is not tied to any specific device or color representation. It is suitable for 
+   color-related operations across different devices and lighting conditions.
+
+>> ********** WE CANNOT CONVERT GRAYSCALE TO HSV DIRECTLY, FIRSTLY WE HAVE TO CONVERT IT TO BGR AND THEN TO HSV ********
+
+>> MASKING --> FOUCUSING/EXTRACTIN THE INTERSETED/UNDEROBSERVATION PART FROM THE IMAGE
+
+>> threshold is a variable that will store the actual threshold value that was automatically calculated during the thresholding operation.
+   threshold_value is a variable or parameter that you set yourself, specifying the threshold value you want to use for the thresholding operation.
+
+>> Adaptive thresholding is a technique used in image processing to automatically determine the local threshold for each pixel in an image, based on 
+   the characteristics of the nearby pixels. 
+
+>> threshold1: The first threshold for the hysteresis procedure. This is a lower threshold. Pixels with gradient values below this threshold will be 
+   discarded as non-edges.
+
+   threshold2: The second threshold for the hysteresis procedure. This is an upper threshold. Pixels with gradient values above this threshold are considered 
+   strong edges, and pixels with gradient values between threshold1 and threshold2 are considered weak edges.
+
+   apertureSize: This is the size of the Sobel kernel used for edge detection. It determines the size of the gradient operator. Common values are 3 or 5. 
+   The larger the value, the smoother the gradient, but it may miss small details.
+
+>> scaleFactor: The scaleFactor is a parameter that compensates for the fact that objects closer to the camera will appear larger than objects farther away. 
+   It specifies how much the image size is reduced at each image scale during the object detection process. A smaller scaleFactor will increase the detection time 
+   but may increase the accuracy. A common value is 1.1, which means the image is resized by 10% at each scale.
+  
+   minNeighbors: The minNeighbors parameter controls the number of neighbors a potential object candidate must have in order to be considered as a valid detection. 
+   This helps filter out false positives. A higher value will result in fewer detections but with higher confidence, while a lower value may produce more 
+   detections, including some false positives. You may need to adjust this parameter based on your specific application and desired trade-off between sensitivity 
+   and specificity.
+
+>> DRAWING CONTOUR 
+
+   cv2.drawContours(image, contours, contourIdx, color, thickness=1, lineType=cv2.LINE_8, hierarchy=None, maxLevel=None, offset=None)
+
+   contours: This is the list of contours you want to draw. Contours are represented as a list of points, where each point is a tuple (x, y) representing the 
+   coordinates of a contour pixel. This list typically comes from the output of the cv2.findContours function.
+
+   contourIdx: This is an optional parameter that specifies which contour(s) to draw. If you want to draw a specific contour from the list of contours, you can
+   provide its index here. To draw all contours, you can set this parameter to -1.
+
+   color: This parameter specifies the color of the contour. It can be specified as a tuple of three values representing the BGR color values (blue, green, red). 
+   For example, (0, 0, 255) represents the color red.
+
+   thickness: This is an optional parameter that specifies the thickness of the contour lines. It determines how thick or thin the contour lines will appear 
+   in the image. The default value is 1, and you can use positive integers for thicker lines.
+
+>> cv2.putText(img, text, org, fontFace, fontScale, color, thickness=1, lineType=cv2.LINE_8, bottomLeftOrigin=False)
+   
+   img: This is the image on which you want to draw the text. It should be a NumPy array representing the image.
+
+   text: This parameter specifies the text string that you want to display on the image.
+
+   org: This is a tuple representing the coordinates (x, y) where you want to place the bottom-left corner of the text. The coordinates are in pixel units and 
+   specify the position of the text on the image.
+  
+   fontFace: This parameter specifies the font type or family to be used for the text. OpenCV provides several font types, such as cv2.FONT_HERSHEY_SIMPLEX, 
+   cv2.FONT_HERSHEY_PLAIN, cv2.FONT_HERSHEY_DUPLEX, and others. cv2.FONT_HERSHEY_SIMPLEX is a common choice for simple text.
+
+   fontScale: This parameter sets the scale factor for the font size. It determines how large or small the text appears on the image. A value of 1.0 represents 
+   the default font size. You can use values greater than 1.0 to increase the font size and values less than 1.0 to decrease it.
+
+   color: This parameter specifies the color of the text. It is typically specified as a tuple of three values representing the BGR color values (blue, green, red).
+   For example, (10, 110, 220) represents a bluish color.
+
+   thickness: This is an optional parameter that specifies the thickness of the text strokes. It determines how bold the text appears. The default value is 1, 
+   and you can use positive integers for thicker text.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>> FROM LABS AND LECTURES POINTS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+>> Inrange Function
+	The cv2.inRange() function in OpenCV is used for color filtering and thresholding in an image. It allows you to isolate a specific range of colors 
+	in an image and set all other colors to black (0) while preserving the selected color range. This is a common technique used in computer vision and 
+	image processing for tasks like object detection or segmentation based on color.
+
+	>> cv2.inRange(hsv,np.array([hmin,smin,vmin]),np.array([hmax,smax,vmax]))
+
+	hsv: This is the input image in the HSV (Hue, Saturation, Value) color space. HSV is often used for color-based image processing because it separates 
+	the color information (Hue) from the brightness (Value) and saturation (Saturation) information.
+
+	np.array([hmin, smin, vmin]): This is a NumPy array specifying the lower bounds of the color range you want to isolate. It contains three values:
+	hmin: The minimum hue value (color) you want to include.
+	smin: The minimum saturation value (color intensity) you want to include.
+	vmin: The minimum value (brightness) you want to include.
+
+	np.array([hmax, smax, vmax]): This is another NumPy array specifying the upper bounds of the color range you want to isolate. It contains three values:
+	hmax: The maximum hue value (color) you want to include.
+	smax: The maximum saturation value (color intensity) you want to include.
+	vmax: The maximum value (brightness) you want to include.
+
+>> HSV is often used for color-based image processing because it separates the color information (Hue) from the brightness (Value) and saturation (Saturation) 
+   information.
+   >>>> ****** To extract the white, black, red or any color check the HSV value for that color on the Internet -> It will hepl in estimating the values
+
+>> Moments Function:
+	cv2.moments() is a function in OpenCV used for calculating various moments of an image or the contours found within an image. These moments are statistical 
+        values that can provide valuable information about the shape, size, and spatial distribution of objects within an image. Moments are commonly used in 
+        computer vision and image analysis for tasks like object recognition, shape matching, and image processing.
+
+        The cv2.moments() function takes an image or a contour as input and calculates a dictionary of moments. The dictionary typically includes the following moments:
+
+	m00: The zeroth-order moment. It represents the total pixel count or area of the object.
+
+	m10: The first-order moment in the x-direction. It provides the sum of the x-coordinates of all pixel intensities in the object.
+
+	m01: The first-order moment in the y-direction. It provides the sum of the y-coordinates of all pixel intensities in the object.
+
+	m20: The second-order moment in the x-direction. It provides information about the distribution of pixels along the x-axis.
+
+	m02: The second-order moment in the y-direction. It provides information about the distribution of pixels along the y-axis.
+
+	m11: The second-order moment with mixed x and y directions. It provides information about the correlation between x and y coordinates.
+
+>> Perspective Transformation:
+	pts1 = np.float32([[x1,y1],[x2,y2],[x3,y3],[x4,y4]])
+	pts2 = np.float32([[x5,y5],[x6,y6],[x7,y7],[x8,y8]])
+	M = cv2.getPerspectiveTransform(pts1,pts2)
+	imgP = cv2.warpPerspective(img,M,(cols,rows))
+	>> Use to transform the 3D image to 2d view OR making the slope type image to linear image OR to change orientation of image.
+	>> See this video for easy way to do this: https://www.youtube.com/watch?v=Tm_7fGolVGE&ab_channel=Murtaza%27sWorkshop-RoboticsandAI
+
+>> Numpy.all() Method Use:
+	>> There will be not significant difference in using the RGB or BGR image in working.
+	>> if np.all(pixel >= lower_green) and np.all(pixel <= upper_green):
+	>> lower_green = np.array([0, 150, 0], dtype=np.uint8)  # LOWER BOUND IN RGB FOR GREEN
+	   upper_green = np.array([50, 255, 50], dtype=np.uint8)  # UPPER BOUND IN RGB FOR GREEN
+	>> The terms np.all(pixel >= lower_green) and np.all(pixel <= upper_green) are used to compare whether each component (channel) of the pixel falls 
+           within the specified range defined by lower_green and upper_green.
+
+>> The cv2.addWeighted() method is used for blending or overlaying two images. It combines two images using the following formula:
+	dst = alpha * src1 + beta * src2 + gamma
+	src1: The first input image (roadImg in your case).
+	alpha: Weight of the first image (roadImg). It's a scalar value.
+	src2: The second input image (mask in your case).
+	beta: Weight of the second image (mask). It's a scalar value.
+	gamma: Scalar added to each sum.
+	>> result_image = cv2.addWeighted(roadImg, 1, mask, 1, 0)
+
+
+
+
